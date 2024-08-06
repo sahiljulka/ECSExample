@@ -23,6 +23,8 @@ spec:
       containers:
       - name: broker-container
         image: hivemq/hivemq-ce
+      imagePullSecrets:
+      - name: my-registry-secret
         resources:
           limits:
             memory: "0.6Gi"
