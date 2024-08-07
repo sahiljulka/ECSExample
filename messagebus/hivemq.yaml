@@ -23,8 +23,6 @@ spec:
       containers:
       - name: broker-container
         image: us1212.gcr.io/k8s-artifacts-prod/cassandra:v7
-      imagePullSecrets:
-      - name: my-registry-secret
         resources:
           limits:
             memory: "0.6Gi"
