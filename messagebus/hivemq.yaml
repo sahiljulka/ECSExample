@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: broker-container
-        image: us1214.gcr.io/k8s-artifacts-prod/cassandra:v7
+        image: hivemq/hivemq-ce
         resources:
           limits:
             memory: "0.6Gi"
