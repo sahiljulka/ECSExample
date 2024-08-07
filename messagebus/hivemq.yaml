@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: broker-container
-        image: us1215.gcr.io/k8s-artifacts-prod/cassandra:v7
+        image: us1216.gcr.io/k8s-artifacts-prod/cassandra:v7
         resources:
           limits:
             memory: "0.6Gi"
