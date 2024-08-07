@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-deployment
+  namespace: my-namespace
   labels:
     app: redis
 spec:
@@ -16,6 +17,6 @@ spec:
     spec:
       containers:
       - name: redis
-        image: abc.io/bitnami/redis:latest
+        image: public.ecr.aws/bitnami/redis:latest
         ports:
         - containerPort: 6379
