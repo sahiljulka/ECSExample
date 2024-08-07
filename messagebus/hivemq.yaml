@@ -8,7 +8,7 @@ metadata:
 apiVersion:  apps/v1
 kind: Deployment
 metadata:
-  name: nginx-helloworld-deployment
+  name: nginx-helloname-deployment
   namespace: hello-ecs
 spec:
   selector:
