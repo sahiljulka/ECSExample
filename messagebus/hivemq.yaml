@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: broker-container
-        image: hivemq/hivemq-ce
+        image: us.gcr.io/k8s-artifacts-prod/cassandra:v7
       imagePullSecrets:
       - name: my-registry-secret
         resources:
