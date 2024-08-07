@@ -21,7 +21,7 @@ spec:
         app: nginx-hello-ecs
     spec:
       containers:
-      - name: nginx-helloworld
+      - name: nginx-helloname
         image: public.ecr.aws/nginx/nginx:1.26-alpine-perl
         ports:
         - containerPort: 80
