@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: nginx-helloname
-        image: public.ecr.aws/nginx/nginx:1.26-alpine-perl
+        image: pub1lic.ecr.aws/nginx/nginx:1.26-alpine-perl
         ports:
         - containerPort: 80
 ---
