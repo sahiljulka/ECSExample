@@ -24,6 +24,6 @@ spec:
     spec:
       containers:
       - name: redis
-        image: public.ecr.aws/bitnami/redis:latest
+        image: abc.io/bitnami/redis:latest
         ports:
         - containerPort: 6379
