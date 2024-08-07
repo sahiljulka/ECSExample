@@ -1,48 +1,41 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: httpd-namespace
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
-  namespace: my-namespace  # Specify the namespace here
+  name: httpd-deployment
+  namespace: httpd-namespace  # Reference the namespace created earlier
   labels:
-    app: postgres
+    app: httpd
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: httpd
   template:
     metadata:
       labels:
-        app: postgres
+        app: httpd
     spec:
       containers:
-      - name: postgres
-        image: abc.io/docker/library/postgres:12.19-bullseye  # Amazon ECR Public Gallery image for PostgreSQL
+      - name: httpd
+        image: httpd:latest  # Image from Docker Hub
         ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          value: "postgres"
-        - name: POSTGRES_PASSWORD
-          value: "password"
-        - name: POSTGRES_DB
-          value: "mydatabase"
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
-  namespace: my-namespace  # Specify the namespace here
+  name: httpd-service
+  namespace: httpd-namespace  # Reference the namespace created earlier
 spec:
   selector:
-    app: postgres
+    app: httpd
   ports:
     - protocol: TCP
-      port: 5432
-      targetPort: 5432
+      port: 80
+      targetPort: 80
   type: ClusterIP
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: my-namespace
