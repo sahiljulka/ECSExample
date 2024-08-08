@@ -1,25 +1,41 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-namespace
+  name: hello-ecs
+  labels:
+    app: metallb
 ---
-apiVersion: apps/v1
+apiVersion:  apps/v1
 kind: Deployment
 metadata:
-  name: httpd-deployment
-  namespace: my-namespace  # Specify the namespace here
+  name: nginx-helloworld-deployment
+  namespace: hello-ecs
 spec:
-  replicas: 2  # Number of replicas
   selector:
     matchLabels:
-      app: httpd
+      app: nginx-hello-ecs
+  replicas: 1 # tells deployment to run 1 pod matching the template
   template:
     metadata:
       labels:
-        app: httpd
+        app: nginx-hello-ecs
     spec:
       containers:
-      - name: httpdcontainer
-        image: httpd:latest  # Use the Apache HTTP Server image
+      - name: nginx-helloworld
+        image: alanrenouf/docker-nginx-hello-keswick
         ports:
         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-nodeport
+  namespace: hello-ecs
+spec:
+  type: NodePort
+  ports:
+  - port: 80      # Port exposed within the cluster
+    targetPort: 80  # Port on the pods
+    nodePort: 30099   # Port accessible externally on each node
+  selector:
+    app: nginx-hello-ecs
