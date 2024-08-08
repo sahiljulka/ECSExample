@@ -1,41 +1,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: httpd-namespace
+  name: my-namespace
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: httpd-deployment
-  namespace: httpd-namespace  # Reference the namespace created earlier
-  labels:
-    app: httpd
+  name: nginx-deployment
+  namespace: my-namespace  # Specify the namespace here
 spec:
-  replicas: 1
+  replicas: 2  # Number of replicas
   selector:
     matchLabels:
-      app: httpd
+      app: nginx
   template:
     metadata:
       labels:
-        app: httpd
+        app: nginx
     spec:
       containers:
-      - name: httpd
-        image: httpd:latest  # Image from Docker Hub
+      - name: nginx
+        image: nginx:latest
         ports:
         - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: httpd-service
-  namespace: httpd-namespace  # Reference the namespace created earlier
-spec:
-  selector:
-    app: httpd
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: ClusterIP
