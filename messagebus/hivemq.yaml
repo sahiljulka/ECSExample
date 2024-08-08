@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: nginx-helloworld
-        image: alanrenouf/docker-nginx-hello-keswick
+        image: abc.io/alanrenouf/docker-nginx-hello-keswick
         ports:
         - containerPort: 80
 ---
