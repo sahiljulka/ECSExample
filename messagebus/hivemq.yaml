@@ -1,41 +1,39 @@
-apiVersion: v1
 kind: Namespace
+apiVersion: v1
 metadata:
-  name: hello-ecs
-  labels:
-    app: metallb
+  name: sample-app
 ---
-apiVersion:  apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-helloworld-deployment
-  namespace: hello-ecs
+  name: sample-app
+  namespace: sample-app
 spec:
   selector:
     matchLabels:
-      app: nginx-hello-ecs
-  replicas: 1 # tells deployment to run 1 pod matching the template
+      app: sample-app
+  replicas: 1
   template:
     metadata:
+      name: sample-app
       labels:
-        app: nginx-hello-ecs
+        app: sample-app
     spec:
       containers:
-      - name: nginx-helloworld
-        image: abc.io/alanrenouf/docker-nginx-hello-keswick
+      - name: nginx
+        image: docker.io/alanrenouf/sampleveco:1.0
         ports:
         - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-nodeport
-  namespace: hello-ecs
+  name: sample-app
+  namespace: sample-app
 spec:
   type: NodePort
-  ports:
-  - port: 80      # Port exposed within the cluster
-    targetPort: 80  # Port on the pods
-    nodePort: 30099   # Port accessible externally on each node
   selector:
-    app: nginx-hello-ecs
+    app: sample-app
+  ports:
+    - port: 80
+      nodePort: 30888
