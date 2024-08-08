@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: postgres
-        image: public.ecr.aws/docker/library/postgres:12.19-bullseye  # Amazon ECR Public Gallery image for PostgreSQL
+        image: postgres:12.19-bullseye
         ports:
         - containerPort: 5432
         env:
