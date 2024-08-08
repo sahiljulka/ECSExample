@@ -1,27 +1,49 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-deployment-revised
-  namespace: my-namespace
-  labels:
-    app: redis
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis
-  template:
-    metadata:
-      labels:
-        app: redis
-    spec:
-      containers:
-      - name: redis-revised
-        image: redis:latest
-        ports:
-        - containerPort: 6379
----
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-namespace
+  name: my-database-namespace
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+  namespace: my-database-namespace  # Specify the namespace here
+spec:
+  replicas: 1  # Number of replicas (1 for single-instance MySQL)
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest  # Use the MySQL image from Docker Hub
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "rootpassword"  # Replace with a strong password
+        - name: MYSQL_DATABASE
+          value: "mydatabase"  # Optional: specify a default database
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-data
+        emptyDir: {}  # Use a persistent volume claim (PVC) in production
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+  namespace: my-database-namespace  # Specify the namespace here
+spec:
+  type: ClusterIP  # Use ClusterIP for internal access (change to LoadBalancer if external access is needed)
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql
