@@ -1,39 +1,48 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: sample-app
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-app
-  namespace: sample-app
+  name: postgres-deployment
+  namespace: my-namespace  # Specify the namespace here
+  labels:
+    app: postgres
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: sample-app
-  replicas: 1
+      app: postgres
   template:
     metadata:
-      name: sample-app
       labels:
-        app: sample-app
+        app: postgres
     spec:
       containers:
-      - name: nginx
-        image: docker.io/alanrenouf/sampleveco:1.0
+      - name: postgres
+        image: public.ecr.aws/docker/library/postgres:12.19-bullseye  # Amazon ECR Public Gallery image for PostgreSQL
         ports:
-        - containerPort: 80
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+        - name: POSTGRES_DB
+          value: "mydatabase"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-app
-  namespace: sample-app
+  name: postgres-service
+  namespace: my-namespace  # Specify the namespace here
 spec:
-  type: NodePort
   selector:
-    app: sample-app
+    app: postgres
   ports:
-    - port: 80
-      nodePort: 30888
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: my-namespace
