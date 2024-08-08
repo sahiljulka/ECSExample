@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-deployment
+  name: redis-deployment-revised
   namespace: my-namespace
   labels:
     app: redis
@@ -16,7 +16,7 @@ spec:
         app: redis
     spec:
       containers:
-      - name: redis
+      - name: redis-revised
         image: redis:latest
         ports:
         - containerPort: 6379
