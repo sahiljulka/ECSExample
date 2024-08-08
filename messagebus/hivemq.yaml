@@ -1,49 +1,25 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: my-database-namespace
+  name: my-namespace
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysql-deployment
-  namespace: my-database-namespace  # Specify the namespace here
+  name: httpd-deployment
+  namespace: my-namespace  # Specify the namespace here
 spec:
-  replicas: 1  # Number of replicas (1 for single-instance MySQL)
+  replicas: 2  # Number of replicas
   selector:
     matchLabels:
-      app: mysql
+      app: httpd
   template:
     metadata:
       labels:
-        app: mysql
+        app: httpd
     spec:
       containers:
-      - name: mysql
-        image: mysql:latest  # Use the MySQL image from Docker Hub
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: "rootpassword"  # Replace with a strong password
-        - name: MYSQL_DATABASE
-          value: "mydatabase"  # Optional: specify a default database
+      - name: httpdcontainer
+        image: httpd:latest  # Use the Apache HTTP Server image
         ports:
-        - containerPort: 3306
-        volumeMounts:
-        - name: mysql-data
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-data
-        emptyDir: {}  # Use a persistent volume claim (PVC) in production
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql-service
-  namespace: my-database-namespace  # Specify the namespace here
-spec:
-  type: ClusterIP  # Use ClusterIP for internal access (change to LoadBalancer if external access is needed)
-  ports:
-    - port: 3306
-      targetPort: 3306
-  selector:
-    app: mysql
+        - containerPort: 80
