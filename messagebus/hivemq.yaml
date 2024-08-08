@@ -1,25 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  namespace: my-namespace  # Specify the namespace here
+  labels:
+    app: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: public.ecr.aws/docker/library/postgres:12.19-bullseye  # Amazon ECR Public Gallery image for PostgreSQL
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+        - name: POSTGRES_DB
+          value: "mydatabase"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: my-namespace  # Specify the namespace here
+spec:
+  selector:
+    app: postgres
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
 apiVersion: v1
 kind: Namespace
 metadata:
   name: my-namespace
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: httpd-deployment
-  namespace: my-namespace  # Specify the namespace here
-spec:
-  replicas: 2  # Number of replicas
-  selector:
-    matchLabels:
-      app: httpd
-  template:
-    metadata:
-      labels:
-        app: httpd
-    spec:
-      containers:
-      - name: httpdcontainer
-        image: httpd:latest  # Use the Apache HTTP Server image
-        ports:
-        - containerPort: 80
