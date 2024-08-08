@@ -6,20 +6,20 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: httpd-deployment
   namespace: my-namespace  # Specify the namespace here
 spec:
   replicas: 2  # Number of replicas
   selector:
     matchLabels:
-      app: nginx
+      app: httpd
   template:
     metadata:
       labels:
-        app: nginx
+        app: httpd
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest
+      - name: httpd
+        image: httpd:latest  # Use the Apache HTTP Server image
         ports:
         - containerPort: 80
