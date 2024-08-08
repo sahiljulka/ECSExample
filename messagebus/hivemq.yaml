@@ -19,7 +19,7 @@ spec:
         app: httpd
     spec:
       containers:
-      - name: httpd
+      - name: httpdcontainer
         image: httpd:latest  # Use the Apache HTTP Server image
         ports:
         - containerPort: 80
