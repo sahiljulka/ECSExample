@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: redis-revised123
-        image: ghcr.io/redisgrafana/redis-opencv:latest
+        image: ghcr.io/acorn-io/redis:v7.2.4-0
         ports:
         - containerPort: 6379
 ---
