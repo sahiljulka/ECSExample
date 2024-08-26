@@ -16,7 +16,7 @@ spec:
         app: redis
     spec:
       containers:
-      - name: redis-revised
+      - name: redis-revised1
         image: ghcr.io/redisgrafana/redis-opencv:latest
         ports:
         - containerPort: 6379
