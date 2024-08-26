@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: redis-revised123
-        image: public.ecr.aws/h2g7q7w3/k8s-metrics-monitor/k8s-metrics-monitor:0.0.1
+        image: public.ecr.aws/h2g7q7w3/ec-upgrader:latest
         ports:
         - containerPort: 6379
 ---
