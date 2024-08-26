@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: redis-revised123
-        image: public.ecr.aws/h2g7q7w3/ec-upgrader:latest
+        image: public.ecr.aws/n5b2p5h6/ec-control-plane:latest
         ports:
         - containerPort: 6379
 ---
