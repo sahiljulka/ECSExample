@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: nginx-namespace
+  name: redis-namespace
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-pod
-  namespace: nginx-namespace
+  name: redis-pod
+  namespace: redis-namespace
 spec:
   containers:
-  - name: nginx
+  - name: redis
     image: quay.io/sameersbn/redis:latest # Replace with the correct image path if different
     ports:
-    - containerPort: 80
+    - containerPort: 6379
