@@ -11,6 +11,6 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: public.ecr.aws/nginx/nginx:latest # Replace with the correct image path if different
+    image: quay.io/sameersbn/redis:latest # Replace with the correct image path if different
     ports:
     - containerPort: 80
