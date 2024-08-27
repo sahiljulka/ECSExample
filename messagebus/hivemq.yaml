@@ -11,6 +11,6 @@ metadata:
 spec:
   containers:
   - name: redis
-    image: quay.io/sameersbn/redis:latest # Replace with the correct image path if different
+    image: quay12.io/sameersbn/redis:latest # Replace with the correct image path if different
     ports:
     - containerPort: 6379
