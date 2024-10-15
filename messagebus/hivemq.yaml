@@ -11,6 +11,6 @@ metadata:
 spec:
   containers:
   - name: redis
-    image: docker77999911/nginx:latest
+    image: redis
     ports:
     - containerPort: 6379
