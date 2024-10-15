@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: redis-namespace
+  name: zot-check
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: redis-pod
-  namespace: redis-namespace
+  name: nginx-77-pod
+  namespace: zot-check
 spec:
   containers:
   - name: redis
-    image: quay.io/sameersbn/redis:latest # Replace with the correct image path if different
+    image: docker77999911/nginx:latest
     ports:
     - containerPort: 6379
