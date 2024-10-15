@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx-99-pod
+  name: nginx-100-pod
   namespace: zot-check
 spec:
   containers:
